@@ -1,28 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/17 15:27:26 by smedenec         ###   ########.fr       */
+/*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
+/*   Updated: 2025/06/17 15:14:28 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
-{
-	return (NULL);
-}
-int	main(void)
-{
-	int		file;
-	char	str;
-	char	*ret;
 
-	file = 88;
-	ret = get_next_line(file);
-	printf("call gnl = %s\n", (char *)ret);
-}
