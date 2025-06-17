@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/17 15:16:49 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:37:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stddef.h>
-# include <stdarg.h>
+# include <fcntl.h>
 
 char	*get_next_line(int fd);
 

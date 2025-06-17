@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/17 15:27:26 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:40:45 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int		file;
-	char	str;
-	char	*ret;
+	char	*line;
+	char	*line;
 
-	file = 88;
-	ret = get_next_line(file);
-	printf("call gnl = %s\n", (char *)ret);
+	file = open("file.txt", O_RDONLY);
+	if (file == -1)
+		return (1);
+	line = get_next_line(file);
+	printf("call gnl = %s\n", (char *)line);
+	return (0);
 }
