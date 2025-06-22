@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/21 19:21:31 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:43:13 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,32 @@ char	*get_next_line(int fd)
 	ssize_t		lenbuff;
 	char		*buff;
 	char		*ligne;
-	static char	*past;//static pour garder les anciens characters
+	static char	*past;//le reste a rajouter apres
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
+	ligne = NULL;
+	//Partie reste
+
+	//Partie buffer
 	lenbuff = read(fd, buff, BUFFER_SIZE);// taille du buffer
 	if (lenbuff == -1)//read echoue
 	{
+		printf("Read fail\n");
 		free(buff);
 		free(past);
 		past = NULL;
-		return(NULL);
+		return (NULL);
 	}
-	return (buff);
+	if (lenbuff == 0)
+		return (NULL);
+	ligne = ft_strjoin(ligne, buff);
+	return (ligne);
 }
+
 int	main(void)
 {
 	int		file;
@@ -44,7 +52,7 @@ int	main(void)
 	if (file == -1)
 		return (1);
 	line = get_next_line(file);
-	printf("call gnl = %s\n", (char *)line);
+	printf("Call a ligne = %s\n", (char *)line);
 	close(file);
 	return (0);
 }
