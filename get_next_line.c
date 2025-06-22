@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/22 21:43:13 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:17:17 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,41 @@ char	*get_next_line(int fd)
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
+	lenbuff = -1;
 	ligne = NULL;
-	//Partie reste
-
-	//Partie buffer
-	lenbuff = read(fd, buff, BUFFER_SIZE);// taille du buffer
-	if (lenbuff == -1)//read echoue
+	past = NULL;
+	while (!strchr(past, '\n') && lenbuff > 0)//si pas fin de ligne
 	{
-		printf("Read fail\n");
-		free(buff);
+		lenbuff = read(fd, buff, BUFFER_SIZE);// lenbuff = taille du buffer
+		if (lenbuff == -1)//read echoue
+		{
+			printf("Read fail\n");
+			free(buff);
+			free(past);
+			past = NULL;
+			return (NULL);
+		}
+		if (lenbuff != 0)
+			past = ft_strjoin(past, buff); //reste est ajoutee
+	}
+	if (!(ligne = take_line(past))) //extraire la ligne jusq \n
+	{
 		free(past);
 		past = NULL;
 		return (NULL);
 	}
-	if (lenbuff == 0)
-		return (NULL);
-	ligne = ft_strjoin(ligne, buff);
+	if (!(past = save_rest(past))) //extraire la ligne jusq \n
+		{
+			free(past);
+			past = NULL;
+			return (NULL);
+		}
 	return (ligne);
 }
+
+char	*take_line();
+char	*save_rest();
+
 
 int	main(void)
 {
