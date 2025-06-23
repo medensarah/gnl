@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 17:03:06 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:03:54 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*ft_strchr(char *s, int c)
 {
+	if (!s)
+		return(NULL);
 	while (*s)
 	{
 		if (*s++ == (char)c)
@@ -33,8 +35,6 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	j = 0;
 	k = 0;
-	if (!s2)
-		return (NULL);
 	len = ft_len(s1, s2);
 	str = malloc(sizeof(char) * (len + 1));
 	if (str == NULL)
@@ -50,7 +50,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		k++;
 	}
 	str[j + k] = '\0';
-	printf("join = %s\n", (char *)str);
+	free(s1);
+	s1 = NULL;
 	return (str);
 }
 
@@ -63,7 +64,10 @@ int	ft_len(char *s1, char *s2)
 		len_s1 = ft_strlen(s1);
 	else
 		len_s1 = 0;
-	len_s2 = ft_strlen(s2);
+	if (s2)
+		len_s2 = ft_strlen(s2);
+	else
+		len_s2 = 0;
 	return (len_s1 + len_s2);
 }
 

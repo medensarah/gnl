@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 18:32:30 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:18:54 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ char	*get_next_line(int fd)
 	if (!buff)
 		return (NULL);
 	lenbuff = 1;
-	while (!strchr(past, '\n') && lenbuff > 0)//si pas fin de ligne
+	while (!ft_strchr(past, '\n') && lenbuff > 0)//si pas fin de ligne
 	{
 		lenbuff = read(fd, buff, BUFFER_SIZE);// lenbuff = taille du buffer
 		buff[lenbuff] = '\0';
 		if (read_fail(past, buff, lenbuff))//read echoue
 			return (NULL);
 		past = ft_strjoin(past, buff);//reste est ajoutee
+
 	}
 	free(buff);
 	ligne = take_line(past);//extraire la ligne jusq \n
@@ -46,7 +47,7 @@ char	*take_line(char *past)
 
 	i = 0;
 	ligne = ft_strdup(past);
-	if (!ligne)
+	if (!ligne || ligne[i] == '\0')
 		return (NULL);
 	while (ligne && ligne[i] && (ligne[i] != '\n'))
 		i++;
@@ -108,16 +109,16 @@ int	main(void)
 	int		file;
 	char	*line;
 
-	i = 5;
+	i = 4;
 	file = open("file.txt", O_RDONLY);
 	if (file == -1)
 		return (1);
 	while (i--)
 	{
 		line = get_next_line(file);
-		printf("Call a ligne = %s\n", line ? line : "(NULL)");
-		if (line)
-			free(line);
+		printf("Call a ligne = %s\n", (char *)line);
+		free(line);
+		line = NULL;
 	}
 	close(file);
 	return (0);
