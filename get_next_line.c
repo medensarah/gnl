@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 18:13:05 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:32:30 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,38 @@ char	*take_line(char *past)
 char	*save_rest(char *past)
 {
 	int		i;
+	int		j;
 	int		len;
 	char	*rest;
 
 	i = 0;
+	j = 0;
 	while (past && past[i] && past[i] != '\n')
 		i++;
 	if (!past || !past[i] || (past[i] == '\n' && !past[i + 1]))
-	{
-		free(past);
-		past = NULL;
-		return (NULL);
-	}
+		return (free_past(past));
 	i++;
 	len = ft_strlen(past);
 	rest = malloc(sizeof(char) * (len + 1 - i));
 	if (!rest)
+		return (free_past(past));
+	while (past[i + j])
 	{
-		free(past);
-		past = NULL;
-		return (NULL);
+		rest[j] = past[i + j];
+		j++;
 	}
-	while (past[i++])
-	{
-		rest
-	}
+	rest[j] = '\0';
+	free(past);
+	past = NULL;
+	return (rest);
 }
 
-//void	free_past(char *past)
+void	*free_past(char *past)
+{
+	free(past);
+	past = NULL;
+	return (NULL);
+}
 
 int	read_fail(char	*past, char *buff, ssize_t lenbuff)
 {
