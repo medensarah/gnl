@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 16:27:23 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:31:08 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ char	*get_next_line(int fd)
 	}
 	ligne = take_line(past);//extraire la ligne jusq \n
 	past = save_rest(past);//Ajouter le reste a past
-	if (!past)
-	{
-		free(past);
-		past = NULL;
-	}
 	return (ligne);
 }
 
