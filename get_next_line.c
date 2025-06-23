@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/22 23:17:17 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:40:59 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_next_line(int fd)
 	ssize_t		lenbuff;
 	char		*buff;
 	char		*ligne;
-	static char	*past;//le reste a rajouter apres
+	static char	*past = NULL;//le reste a rajouter apres
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -26,8 +26,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	lenbuff = -1;
 	ligne = NULL;
-	past = NULL;
-	while (!strchr(past, '\n') && lenbuff > 0)//si pas fin de ligne
+	while ((!strchr(past, '\n')) && (lenbuff > 0))//si pas fin de ligne
 	{
 		lenbuff = read(fd, buff, BUFFER_SIZE);// lenbuff = taille du buffer
 		if (lenbuff == -1)//read echoue
@@ -39,26 +38,27 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		if (lenbuff != 0)
-			past = ft_strjoin(past, buff); //reste est ajoutee
+			past = ft_strjoin(past, buff);//reste est ajoutee
 	}
-	if (!(ligne = take_line(past))) //extraire la ligne jusq \n
+	ligne = take_line(past);//extraire la ligne jusq \n
+	past = save_rest(past);//Ajouter le reste a past
+	if (!past)
 	{
 		free(past);
 		past = NULL;
-		return (NULL);
 	}
-	if (!(past = save_rest(past))) //extraire la ligne jusq \n
-		{
-			free(past);
-			past = NULL;
-			return (NULL);
-		}
 	return (ligne);
 }
 
-char	*take_line();
-char	*save_rest();
+char	*take_line(char *s)
+{
 
+}
+
+// char	*save_rest(char *s)
+// {
+
+// }
 
 int	main(void)
 {
