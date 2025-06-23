@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 15:40:59 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:27:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,14 @@ char	*get_next_line(int fd)
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
-	lenbuff = -1;
-	ligne = NULL;
+	lenbuff = 1;
 	while ((!strchr(past, '\n')) && (lenbuff > 0))//si pas fin de ligne
 	{
 		lenbuff = read(fd, buff, BUFFER_SIZE);// lenbuff = taille du buffer
-		if (lenbuff == -1)//read echoue
-		{
-			printf("Read fail\n");
-			free(buff);
-			free(past);
-			past = NULL;
+		buff[lenbuff] = '\0';
+		if (read_fail(past, buff, lenbuff))//read echoue
 			return (NULL);
-		}
-		if (lenbuff != 0)
-			past = ft_strjoin(past, buff);//reste est ajoutee
+		past = ft_strjoin(past, buff);//reste est ajoutee
 	}
 	ligne = take_line(past);//extraire la ligne jusq \n
 	past = save_rest(past);//Ajouter le reste a past
@@ -50,15 +43,27 @@ char	*get_next_line(int fd)
 	return (ligne);
 }
 
-char	*take_line(char *s)
-{
+// char	*take_line(char *s)
+// {
 
-}
+// }
 
 // char	*save_rest(char *s)
 // {
 
 // }
+
+int	read_fail(char	*past, char *buff, ssize_t lenbuff)
+{
+	if(lenbuff == -1)
+	{
+		free(buff);
+		free(past);
+		past = NULL;
+		return (1);
+	}
+	return (0);
+}
 
 int	main(void)
 {
