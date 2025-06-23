@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 19:03:54 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:19:12 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strchr(char *s, int c)
 {
 	if (!s)
-		return(NULL);
+		return (NULL);
 	while (*s)
 	{
 		if (*s++ == (char)c)

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 19:18:54 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:18:51 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@ char	*get_next_line(int fd)
 	ssize_t		lenbuff;
 	char		*buff;
 	char		*ligne;
-	static char	*past = NULL;//le reste a rajouter apres
+	static char	*past = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
 		return (NULL);
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
 	lenbuff = 1;
-	while (!ft_strchr(past, '\n') && lenbuff > 0)//si pas fin de ligne
+	while (!ft_strchr(past, '\n') && lenbuff > 0)
 	{
-		lenbuff = read(fd, buff, BUFFER_SIZE);// lenbuff = taille du buffer
+		lenbuff = read(fd, buff, BUFFER_SIZE);
 		buff[lenbuff] = '\0';
-		if (read_fail(past, buff, lenbuff))//read echoue
+		if (read_fail(past, buff, lenbuff))
 			return (NULL);
-		past = ft_strjoin(past, buff);//reste est ajoutee
-
+		past = ft_strjoin(past, buff);
 	}
 	free(buff);
-	ligne = take_line(past);//extraire la ligne jusq \n
-	past = save_rest(past);//Ajouter le reste a past
+	ligne = take_line(past);
+	past = save_rest(past);
 	return (ligne);
 }
 
@@ -47,8 +46,10 @@ char	*take_line(char *past)
 
 	i = 0;
 	ligne = ft_strdup(past);
-	if (!ligne || ligne[i] == '\0')
+	if (!ligne)
 		return (NULL);
+	if (ligne[0] == 0)
+		return (free(ligne), NULL);
 	while (ligne && ligne[i] && (ligne[i] != '\n'))
 		i++;
 	ligne[i] = '\0';
@@ -93,7 +94,7 @@ void	*free_past(char *past)
 
 int	read_fail(char	*past, char *buff, ssize_t lenbuff)
 {
-	if(lenbuff == -1)
+	if (lenbuff == -1)
 	{
 		free(buff);
 		free(past);
@@ -102,24 +103,23 @@ int	read_fail(char	*past, char *buff, ssize_t lenbuff)
 	}
 	return (0);
 }
+// int	main(void)
+// {
+// 	int		i;
+// 	int		file;
+// 	char	*line;
 
-int	main(void)
-{
-	int		i;
-	int		file;
-	char	*line;
-
-	i = 4;
-	file = open("file.txt", O_RDONLY);
-	if (file == -1)
-		return (1);
-	while (i--)
-	{
-		line = get_next_line(file);
-		printf("Call a ligne = %s\n", (char *)line);
-		free(line);
-		line = NULL;
-	}
-	close(file);
-	return (0);
-}
+// 	i = 5;
+// 	file = open("file.txt", O_RDONLY);
+// 	if (file == -1)
+// 		return (1);
+// 	while (i--)
+// 	{
+// 		line = get_next_line(file);
+// 		printf("Call a ligne = %s\n", (char *)line);
+// 		free(line);
+// 		line = NULL;
+// 	}
+// 	close(file);
+// 	return (0);
+// }
