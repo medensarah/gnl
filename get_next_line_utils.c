@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/22 21:32:50 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:03:06 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	*ft_strdup(const char *s)
 	int		len;
 
 	j = 0;
+	if (s == NULL)
+		return (NULL);
 	len = ft_strlen(s);
 	ptr = malloc(sizeof(char) * (len + 1));
 	if (ptr == NULL)
