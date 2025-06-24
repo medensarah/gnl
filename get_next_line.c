@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 20:22:28 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/24 20:41:08 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	read_fail(char	*past, char *buff, ssize_t lenbuff)
 // 	int		i;
 // 	int		file;
 // 	char	*line;
-
 // 	i = 5;
 // 	file = open("file.txt", O_RDONLY);
 // 	if (file == -1)
