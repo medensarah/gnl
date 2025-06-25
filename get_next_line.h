@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:19:34 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/23 20:16:24 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:21:48 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ft_len(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 char	*take_line(char *past);
 char	*save_rest(char *past);
-int		read_fail(char	*past, char *buff, ssize_t lenbuff);
-void	*free_past(char *past);
+void	*read_fail(char	**past, char *buff);
+void	*free_past(char **past);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/24 20:41:08 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:22:09 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ char	*get_next_line(int fd)
 	while (!ft_strchr(past, '\n') && lenbuff > 0)
 	{
 		lenbuff = read(fd, buff, BUFFER_SIZE);
+		if (lenbuff == -1)
+			return (read_fail(&past, buff));
 		buff[lenbuff] = '\0';
-		if (read_fail(past, buff, lenbuff))
-			return (NULL);
 		past = ft_strjoin(past, buff);
 	}
 	free(buff);
+	buff = NULL;
 	ligne = take_line(past);
 	past = save_rest(past);
 	return (ligne);
@@ -52,6 +53,8 @@ char	*take_line(char *past)
 		return (free(ligne), NULL);
 	while (ligne && ligne[i] && (ligne[i] != '\n'))
 		i++;
+	if (ligne[i] == '\n')
+		ligne[i++] = '\n';
 	ligne[i] = '\0';
 	return (ligne);
 }
@@ -68,12 +71,12 @@ char	*save_rest(char *past)
 	while (past && past[i] && past[i] != '\n')
 		i++;
 	if (!past || !past[i] || (past[i] == '\n' && !past[i + 1]))
-		return (free_past(past));
+		return (free_past(&past));
 	i++;
 	len = ft_strlen(past);
 	rest = malloc(sizeof(char) * (len + 1 - i));
 	if (!rest)
-		return (free_past(past));
+		return (free_past(&past));
 	while (past[i + j])
 	{
 		rest[j] = past[i + j];
@@ -85,23 +88,19 @@ char	*save_rest(char *past)
 	return (rest);
 }
 
-void	*free_past(char *past)
+void	*free_past(char **past)
 {
-	free(past);
-	past = NULL;
+	free(*past);
+	*past = NULL;
 	return (NULL);
 }
 
-int	read_fail(char	*past, char *buff, ssize_t lenbuff)
+void	*read_fail(char	**past, char *buff)
 {
-	if (lenbuff == -1)
-	{
-		free(buff);
-		free(past);
-		past = NULL;
-		return (1);
-	}
-	return (0);
+	free(buff);
+	free(*past);
+	*past = NULL;
+	return (NULL);
 }
 // int	main(void)
 // {
@@ -109,13 +108,13 @@ int	read_fail(char	*past, char *buff, ssize_t lenbuff)
 // 	int		file;
 // 	char	*line;
 // 	i = 5;
-// 	file = open("file.txt", O_RDONLY);
+// 	file = open("test.txt", O_RDONLY);
 // 	if (file == -1)
 // 		return (1);
 // 	while (i--)
 // 	{
 // 		line = get_next_line(file);
-// 		printf("Call a ligne = %s\n", (char *)line);
+// 		printf("Call a ligne = %s", (char *)line);
 // 		free(line);
 // 		line = NULL;
 // 	}
