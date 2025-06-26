@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/25 20:22:09 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:57:33 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	char		*ligne;
 	static char	*past = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
@@ -42,7 +42,7 @@ char	*get_next_line(int fd)
 
 char	*take_line(char *past)
 {
-	int		i;
+	size_t	i;
 	char	*ligne;
 
 	i = 0;
@@ -54,17 +54,17 @@ char	*take_line(char *past)
 	while (ligne && ligne[i] && (ligne[i] != '\n'))
 		i++;
 	if (ligne[i] == '\n')
-		ligne[i++] = '\n';
+		i++;
 	ligne[i] = '\0';
 	return (ligne);
 }
 
 char	*save_rest(char *past)
 {
-	int		i;
-	int		j;
-	int		len;
 	char	*rest;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -107,14 +107,19 @@ void	*read_fail(char	**past, char *buff)
 // 	int		i;
 // 	int		file;
 // 	char	*line;
-// 	i = 5;
-// 	file = open("test.txt", O_RDONLY);
+// 	i = 0;
+// 	file = open("file.txt", O_RDONLY);
+// 	//BUFFER_SIZE >= 2147483647
+// 	//new BUFFER_SIZE >= 268435407
 // 	if (file == -1)
 // 		return (1);
-// 	while (i--)
+// 	while (++i <= 8)
 // 	{
 // 		line = get_next_line(file);
-// 		printf("Call a ligne = %s", (char *)line);
+// 		if (!line)
+// 			printf("Call %d = (null)\n", i);
+// 		else
+// 			printf("Call %d = %s", i, (char *)line);
 // 		free(line);
 // 		line = NULL;
 // 	}

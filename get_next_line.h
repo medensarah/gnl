@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:19:34 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/25 20:29:29 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:56:40 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
-int		ft_len(char *s1, char *s2);
-char	*ft_strchr(char *s, int c);
 char	*take_line(char *past);
 char	*save_rest(char *past);
 void	*read_fail(char	**past, char *buff);
 void	*free_past(char **past);
+size_t	ft_len(char *s1, char *s2);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s);
+char	*ft_strchr(const char *s, int c);
 
 #endif
