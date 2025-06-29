@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/26 16:57:33 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:35:41 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	char		*ligne;
 	static char	*past = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 268435408)
 		return (NULL);
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
@@ -109,10 +109,11 @@ void	*read_fail(char	**past, char *buff)
 // 	char	*line;
 // 	i = 0;
 // 	file = open("file.txt", O_RDONLY);
-// 	//BUFFER_SIZE >= 2147483647
-// 	//new BUFFER_SIZE >= 268435407
 // 	if (file == -1)
+// 	{
+// 		printf("Fail to open file\n");
 // 		return (1);
+// 	}
 // 	while (++i <= 8)
 // 	{
 // 		line = get_next_line(file);

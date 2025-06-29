@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:19:34 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/26 16:56:40 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:33:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 772
+#  define BUFFER_SIZE 77
 # endif
 
 char	*get_next_line(int fd);
