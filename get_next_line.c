@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/29 14:35:41 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:36:38 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_next_line(int fd)
 	{
 		lenbuff = read(fd, buff, BUFFER_SIZE);
 		if (lenbuff == -1)
-			return (read_fail(&past, buff));
+			return (fail(&past, buff));
 		buff[lenbuff] = '\0';
 		past = ft_strjoin(past, buff);
 	}
@@ -71,12 +71,12 @@ char	*save_rest(char *past)
 	while (past && past[i] && past[i] != '\n')
 		i++;
 	if (!past || !past[i] || (past[i] == '\n' && !past[i + 1]))
-		return (free_past(&past));
+		return (fail(&past, 0));
 	i++;
 	len = ft_strlen(past);
 	rest = malloc(sizeof(char) * (len + 1 - i));
 	if (!rest)
-		return (free_past(&past));
+		return (fail(&past, 0));
 	while (past[i + j])
 	{
 		rest[j] = past[i + j];
@@ -88,14 +88,7 @@ char	*save_rest(char *past)
 	return (rest);
 }
 
-void	*free_past(char **past)
-{
-	free(*past);
-	*past = NULL;
-	return (NULL);
-}
-
-void	*read_fail(char	**past, char *buff)
+void	*fail(char	**past, char *buff)
 {
 	free(buff);
 	free(*past);

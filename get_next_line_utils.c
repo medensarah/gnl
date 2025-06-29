@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
-/*   Updated: 2025/06/26 16:37:25 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:37:58 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	j = 0;
 	k = 0;
-	len = ft_len(s1, s2);
+	len = ft_strlen(s1) + ft_strlen(s2);
 	str = malloc(sizeof(char) * (len + 1));
 	if (str == NULL)
 		return (NULL);
@@ -54,22 +54,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	s1 = NULL;
 	return (str);
-}
-
-size_t	ft_len(char *s1, char *s2)
-{
-	size_t	len_s1;
-	size_t	len_s2;
-
-	if (s1)
-		len_s1 = ft_strlen(s1);
-	else
-		len_s1 = 0;
-	if (s2)
-		len_s2 = ft_strlen(s2);
-	else
-		len_s2 = 0;
-	return (len_s1 + len_s2);
 }
 
 char	*ft_strdup(const char *s)
@@ -99,7 +83,7 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }
